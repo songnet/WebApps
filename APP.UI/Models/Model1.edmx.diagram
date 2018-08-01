@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="078f268445554848bdf5060ab1d90cff" Name="Diagram1" >
+        <EntityTypeShape EntityType="Model1.sys_menu" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="Model1.sys_operation" Width="1.5" PointX="0.75" PointY="1.125" />
+        <EntityTypeShape EntityType="Model1.sys_permission" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="Model1.sys_role" Width="1.5" PointX="3" PointY="9.75" />
+        <EntityTypeShape EntityType="Model1.sys_role_permission" Width="1.5" PointX="5.25" PointY="1.125" />
+        <EntityTypeShape EntityType="Model1.sys_user" Width="1.5" PointX="0.75" PointY="9" />
+        <AssociationConnector Association="Model1.p_fk_1" />
+        <AssociationConnector Association="Model1.rp_fk_2" />
+        <AssociationConnector Association="Model1.rp_fk_1" />
+        <AssociationConnector Association="Model1.sys_permission_operation" />
+        <AssociationConnector Association="Model1.sys_user_role" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

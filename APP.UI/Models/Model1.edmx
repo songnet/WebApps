@@ -1,0 +1,487 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sys_menu">
+          <Key>
+            <PropertyRef Name="menuId" />
+          </Key>
+          <Property Name="menuId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="parentId" Type="int" />
+          <Property Name="menuName" Type="varchar" MaxLength="100" />
+          <Property Name="menuIcon" Type="varchar" MaxLength="30" />
+          <Property Name="menuUrl" Type="varchar" MaxLength="100" />
+          <Property Name="menuType" Type="varchar" MaxLength="10" />
+          <Property Name="menuOrder" Type="varchar" MaxLength="10" />
+          <Property Name="menuStatus" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="sys_operation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="desc" Type="varchar" MaxLength="100" />
+          <Property Name="name" Type="varchar" MaxLength="100" />
+          <Property Name="operation" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="sys_permission">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="pdesc" Type="varchar" MaxLength="100" />
+          <Property Name="name" Type="varchar" MaxLength="100" />
+          <Property Name="menuId" Type="int" />
+        </EntityType>
+        <EntityType Name="sys_permission_operation">
+          <Key>
+            <PropertyRef Name="permissionId" />
+            <PropertyRef Name="operationId" />
+          </Key>
+          <Property Name="permissionId" Type="int" Nullable="false" />
+          <Property Name="operationId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sys_role">
+          <Key>
+            <PropertyRef Name="roleId" />
+          </Key>
+          <Property Name="roleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="roleName" Type="varchar" MaxLength="100" />
+          <Property Name="roleDesc" Type="varchar" MaxLength="100" />
+          <Property Name="role" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="sys_role_permission">
+          <Key>
+            <PropertyRef Name="rpId" />
+          </Key>
+          <Property Name="rpId" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="roleId" Type="int" Nullable="false" />
+          <Property Name="permissionId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sys_user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="11" />
+          <Property Name="sex" Type="varchar" MaxLength="6" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="mark" Type="varchar" MaxLength="100" />
+          <Property Name="rank" Type="varchar" MaxLength="10" />
+          <Property Name="lastLogin" Type="date" />
+          <Property Name="loginIp" Type="varchar" MaxLength="30" />
+          <Property Name="imageUrl" Type="varchar" MaxLength="100" />
+          <Property Name="regTime" Type="date" Nullable="false" />
+          <Property Name="locked" Type="bool" />
+          <Property Name="rights" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="sys_user_role">
+          <Key>
+            <PropertyRef Name="userId" />
+            <PropertyRef Name="roleId" />
+          </Key>
+          <Property Name="userId" Type="int" Nullable="false" />
+          <Property Name="roleId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="p_fk_1">
+          <End Role="sys_menu" Type="Self.sys_menu" Multiplicity="0..1" />
+          <End Role="sys_permission" Type="Self.sys_permission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_menu">
+              <PropertyRef Name="menuId" />
+            </Principal>
+            <Dependent Role="sys_permission">
+              <PropertyRef Name="menuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="po_fk_1">
+          <End Role="sys_operation" Type="Self.sys_operation" Multiplicity="1" />
+          <End Role="sys_permission_operation" Type="Self.sys_permission_operation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_operation">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sys_permission_operation">
+              <PropertyRef Name="operationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="po_fk_2">
+          <End Role="sys_permission" Type="Self.sys_permission" Multiplicity="1" />
+          <End Role="sys_permission_operation" Type="Self.sys_permission_operation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_permission">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sys_permission_operation">
+              <PropertyRef Name="permissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rp_fk_1">
+          <End Role="sys_role" Type="Self.sys_role" Multiplicity="1" />
+          <End Role="sys_role_permission" Type="Self.sys_role_permission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_role">
+              <PropertyRef Name="roleId" />
+            </Principal>
+            <Dependent Role="sys_role_permission">
+              <PropertyRef Name="roleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rp_fk_2">
+          <End Role="sys_permission" Type="Self.sys_permission" Multiplicity="1" />
+          <End Role="sys_role_permission" Type="Self.sys_role_permission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_permission">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sys_role_permission">
+              <PropertyRef Name="permissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ur_fk_1">
+          <End Role="sys_user" Type="Self.sys_user" Multiplicity="1" />
+          <End Role="sys_user_role" Type="Self.sys_user_role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sys_user_role">
+              <PropertyRef Name="userId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ur_fk_2">
+          <End Role="sys_role" Type="Self.sys_role" Multiplicity="1" />
+          <End Role="sys_user_role" Type="Self.sys_user_role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_role">
+              <PropertyRef Name="roleId" />
+            </Principal>
+            <Dependent Role="sys_user_role">
+              <PropertyRef Name="roleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Model1StoreContainer">
+          <EntitySet Name="sys_menu" EntityType="Self.sys_menu" Schema="songnet" store:Type="Tables" />
+          <EntitySet Name="sys_operation" EntityType="Self.sys_operation" Schema="songnet" store:Type="Tables" />
+          <EntitySet Name="sys_permission" EntityType="Self.sys_permission" Schema="songnet" store:Type="Tables" />
+          <EntitySet Name="sys_permission_operation" EntityType="Self.sys_permission_operation" Schema="songnet" store:Type="Tables" />
+          <EntitySet Name="sys_role" EntityType="Self.sys_role" Schema="songnet" store:Type="Tables" />
+          <EntitySet Name="sys_role_permission" EntityType="Self.sys_role_permission" Schema="songnet" store:Type="Tables" />
+          <EntitySet Name="sys_user" EntityType="Self.sys_user" Schema="songnet" store:Type="Tables" />
+          <EntitySet Name="sys_user_role" EntityType="Self.sys_user_role" Schema="songnet" store:Type="Tables" />
+          <AssociationSet Name="p_fk_1" Association="Self.p_fk_1">
+            <End Role="sys_menu" EntitySet="sys_menu" />
+            <End Role="sys_permission" EntitySet="sys_permission" />
+          </AssociationSet>
+          <AssociationSet Name="po_fk_1" Association="Self.po_fk_1">
+            <End Role="sys_operation" EntitySet="sys_operation" />
+            <End Role="sys_permission_operation" EntitySet="sys_permission_operation" />
+          </AssociationSet>
+          <AssociationSet Name="po_fk_2" Association="Self.po_fk_2">
+            <End Role="sys_permission" EntitySet="sys_permission" />
+            <End Role="sys_permission_operation" EntitySet="sys_permission_operation" />
+          </AssociationSet>
+          <AssociationSet Name="rp_fk_1" Association="Self.rp_fk_1">
+            <End Role="sys_role" EntitySet="sys_role" />
+            <End Role="sys_role_permission" EntitySet="sys_role_permission" />
+          </AssociationSet>
+          <AssociationSet Name="rp_fk_2" Association="Self.rp_fk_2">
+            <End Role="sys_permission" EntitySet="sys_permission" />
+            <End Role="sys_role_permission" EntitySet="sys_role_permission" />
+          </AssociationSet>
+          <AssociationSet Name="ur_fk_1" Association="Self.ur_fk_1">
+            <End Role="sys_user" EntitySet="sys_user" />
+            <End Role="sys_user_role" EntitySet="sys_user_role" />
+          </AssociationSet>
+          <AssociationSet Name="ur_fk_2" Association="Self.ur_fk_2">
+            <End Role="sys_role" EntitySet="sys_role" />
+            <End Role="sys_user_role" EntitySet="sys_user_role" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sys_menu" EntityType="Model1.sys_menu" />
+          <EntitySet Name="sys_operation" EntityType="Model1.sys_operation" />
+          <EntitySet Name="sys_permission" EntityType="Model1.sys_permission" />
+          <EntitySet Name="sys_role" EntityType="Model1.sys_role" />
+          <EntitySet Name="sys_role_permission" EntityType="Model1.sys_role_permission" />
+          <EntitySet Name="sys_user" EntityType="Model1.sys_user" />
+          <AssociationSet Name="p_fk_1" Association="Model1.p_fk_1">
+            <End Role="sys_menu" EntitySet="sys_menu" />
+            <End Role="sys_permission" EntitySet="sys_permission" />
+          </AssociationSet>
+          <AssociationSet Name="rp_fk_2" Association="Model1.rp_fk_2">
+            <End Role="sys_permission" EntitySet="sys_permission" />
+            <End Role="sys_role_permission" EntitySet="sys_role_permission" />
+          </AssociationSet>
+          <AssociationSet Name="rp_fk_1" Association="Model1.rp_fk_1">
+            <End Role="sys_role" EntitySet="sys_role" />
+            <End Role="sys_role_permission" EntitySet="sys_role_permission" />
+          </AssociationSet>
+          <AssociationSet Name="sys_permission_operation" Association="Model1.sys_permission_operation">
+            <End Role="sys_operation" EntitySet="sys_operation" />
+            <End Role="sys_permission" EntitySet="sys_permission" />
+          </AssociationSet>
+          <AssociationSet Name="sys_user_role" Association="Model1.sys_user_role">
+            <End Role="sys_user" EntitySet="sys_user" />
+            <End Role="sys_role" EntitySet="sys_role" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="sys_menu">
+          <Key>
+            <PropertyRef Name="menuId" />
+          </Key>
+          <Property Name="menuId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="parentId" Type="Int32" />
+          <Property Name="menuName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="menuIcon" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="menuUrl" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="menuType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="menuOrder" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="menuStatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="sys_permission" Relationship="Model1.p_fk_1" FromRole="sys_menu" ToRole="sys_permission" />
+        </EntityType>
+        <EntityType Name="sys_operation">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="desc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="operation" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="sys_permission" Relationship="Model1.sys_permission_operation" FromRole="sys_operation" ToRole="sys_permission" />
+        </EntityType>
+        <EntityType Name="sys_permission">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="pdesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="menuId" Type="Int32" />
+          <NavigationProperty Name="sys_menu" Relationship="Model1.p_fk_1" FromRole="sys_permission" ToRole="sys_menu" />
+          <NavigationProperty Name="sys_role_permission" Relationship="Model1.rp_fk_2" FromRole="sys_permission" ToRole="sys_role_permission" />
+          <NavigationProperty Name="sys_operation" Relationship="Model1.sys_permission_operation" FromRole="sys_permission" ToRole="sys_operation" />
+        </EntityType>
+        <EntityType Name="sys_role">
+          <Key>
+            <PropertyRef Name="roleId" />
+          </Key>
+          <Property Name="roleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="roleName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="roleDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="role" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="sys_role_permission" Relationship="Model1.rp_fk_1" FromRole="sys_role" ToRole="sys_role_permission" />
+          <NavigationProperty Name="sys_user" Relationship="Model1.sys_user_role" FromRole="sys_role" ToRole="sys_user" />
+        </EntityType>
+        <EntityType Name="sys_role_permission">
+          <Key>
+            <PropertyRef Name="rpId" />
+          </Key>
+          <Property Name="rpId" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="roleId" Type="Int32" Nullable="false" />
+          <Property Name="permissionId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="sys_permission" Relationship="Model1.rp_fk_2" FromRole="sys_role_permission" ToRole="sys_permission" />
+          <NavigationProperty Name="sys_role" Relationship="Model1.rp_fk_1" FromRole="sys_role_permission" ToRole="sys_role" />
+        </EntityType>
+        <EntityType Name="sys_user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="sex" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="mark" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="rank" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="lastLogin" Type="DateTime" />
+          <Property Name="loginIp" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="imageUrl" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="regTime" Type="DateTime" Nullable="false" />
+          <Property Name="locked" Type="Boolean" />
+          <Property Name="rights" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="sys_role" Relationship="Model1.sys_user_role" FromRole="sys_user" ToRole="sys_role" />
+        </EntityType>
+        <Association Name="p_fk_1">
+          <End Type="Model1.sys_menu" Role="sys_menu" Multiplicity="0..1" />
+          <End Type="Model1.sys_permission" Role="sys_permission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_menu">
+              <PropertyRef Name="menuId" />
+            </Principal>
+            <Dependent Role="sys_permission">
+              <PropertyRef Name="menuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rp_fk_2">
+          <End Type="Model1.sys_permission" Role="sys_permission" Multiplicity="1" />
+          <End Type="Model1.sys_role_permission" Role="sys_role_permission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_permission">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="sys_role_permission">
+              <PropertyRef Name="permissionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rp_fk_1">
+          <End Type="Model1.sys_role" Role="sys_role" Multiplicity="1" />
+          <End Type="Model1.sys_role_permission" Role="sys_role_permission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sys_role">
+              <PropertyRef Name="roleId" />
+            </Principal>
+            <Dependent Role="sys_role_permission">
+              <PropertyRef Name="roleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="sys_permission_operation">
+          <End Type="Model1.sys_operation" Role="sys_operation" Multiplicity="*" />
+          <End Type="Model1.sys_permission" Role="sys_permission" Multiplicity="*" />
+        </Association>
+        <Association Name="sys_user_role">
+          <End Type="Model1.sys_user" Role="sys_user" Multiplicity="*" />
+          <End Type="Model1.sys_role" Role="sys_role" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="Model1" />
+        <Alias Key="Target" Value="Model1.Store" />
+        <EntityContainerMapping CdmEntityContainer="Model1Container" StorageEntityContainer="Model1StoreContainer">
+          <EntitySetMapping Name="sys_menu">
+            <EntityTypeMapping TypeName="Model1.sys_menu">
+              <MappingFragment StoreEntitySet="sys_menu">
+                <ScalarProperty Name="menuStatus" ColumnName="menuStatus" />
+                <ScalarProperty Name="menuOrder" ColumnName="menuOrder" />
+                <ScalarProperty Name="menuType" ColumnName="menuType" />
+                <ScalarProperty Name="menuUrl" ColumnName="menuUrl" />
+                <ScalarProperty Name="menuIcon" ColumnName="menuIcon" />
+                <ScalarProperty Name="menuName" ColumnName="menuName" />
+                <ScalarProperty Name="parentId" ColumnName="parentId" />
+                <ScalarProperty Name="menuId" ColumnName="menuId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_operation">
+            <EntityTypeMapping TypeName="Model1.sys_operation">
+              <MappingFragment StoreEntitySet="sys_operation">
+                <ScalarProperty Name="operation" ColumnName="operation" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="desc" ColumnName="desc" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_permission">
+            <EntityTypeMapping TypeName="Model1.sys_permission">
+              <MappingFragment StoreEntitySet="sys_permission">
+                <ScalarProperty Name="menuId" ColumnName="menuId" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="pdesc" ColumnName="pdesc" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_role">
+            <EntityTypeMapping TypeName="Model1.sys_role">
+              <MappingFragment StoreEntitySet="sys_role">
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="roleDesc" ColumnName="roleDesc" />
+                <ScalarProperty Name="roleName" ColumnName="roleName" />
+                <ScalarProperty Name="roleId" ColumnName="roleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_role_permission">
+            <EntityTypeMapping TypeName="Model1.sys_role_permission">
+              <MappingFragment StoreEntitySet="sys_role_permission">
+                <ScalarProperty Name="permissionId" ColumnName="permissionId" />
+                <ScalarProperty Name="roleId" ColumnName="roleId" />
+                <ScalarProperty Name="rpId" ColumnName="rpId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_user">
+            <EntityTypeMapping TypeName="Model1.sys_user">
+              <MappingFragment StoreEntitySet="sys_user">
+                <ScalarProperty Name="rights" ColumnName="rights" />
+                <ScalarProperty Name="locked" ColumnName="locked" />
+                <ScalarProperty Name="regTime" ColumnName="regTime" />
+                <ScalarProperty Name="imageUrl" ColumnName="imageUrl" />
+                <ScalarProperty Name="loginIp" ColumnName="loginIp" />
+                <ScalarProperty Name="lastLogin" ColumnName="lastLogin" />
+                <ScalarProperty Name="rank" ColumnName="rank" />
+                <ScalarProperty Name="mark" ColumnName="mark" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="sys_permission_operation" TypeName="Model1.sys_permission_operation" StoreEntitySet="sys_permission_operation">
+            <EndProperty Name="sys_permission">
+              <ScalarProperty Name="id" ColumnName="permissionId" />
+            </EndProperty>
+            <EndProperty Name="sys_operation">
+              <ScalarProperty Name="id" ColumnName="operationId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="sys_user_role" TypeName="Model1.sys_user_role" StoreEntitySet="sys_user_role">
+            <EndProperty Name="sys_role">
+              <ScalarProperty Name="roleId" ColumnName="roleId" />
+            </EndProperty>
+            <EndProperty Name="sys_user">
+              <ScalarProperty Name="id" ColumnName="userId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

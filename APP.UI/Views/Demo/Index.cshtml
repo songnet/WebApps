@@ -1,0 +1,106 @@
+﻿@model IEnumerable<APP.UI.Models.sys_user>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.sex)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.mark)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.rank)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lastLogin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.loginIp)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.imageUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.regTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.locked)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.rights)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.sex)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.mark)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.rank)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lastLogin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.loginIp)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.imageUrl)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.regTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.locked)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.rights)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>
