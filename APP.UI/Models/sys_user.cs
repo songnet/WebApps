@@ -11,7 +11,8 @@ namespace APP.UI.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class sys_user
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,7 +20,7 @@ namespace APP.UI.Models
         {
             this.sys_role = new HashSet<sys_role>();
         }
-    
+        [Key]
         public int id { get; set; }
         public string username { get; set; }
         public string password { get; set; }

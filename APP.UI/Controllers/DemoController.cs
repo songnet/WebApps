@@ -12,7 +12,7 @@ namespace APP.UI.Controllers
 {
     public class DemoController : Controller
     {
-        private Model1Container db = new Model1Container();
+        private AppDbContext db = new AppDbContext();
 
         // GET: Demo
         public ActionResult Index()

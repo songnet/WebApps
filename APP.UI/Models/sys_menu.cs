@@ -11,7 +11,8 @@ namespace APP.UI.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class sys_menu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,7 +20,7 @@ namespace APP.UI.Models
         {
             this.sys_permission = new HashSet<sys_permission>();
         }
-    
+        [Key]
         public int menuId { get; set; }
         public Nullable<int> parentId { get; set; }
         public string menuName { get; set; }

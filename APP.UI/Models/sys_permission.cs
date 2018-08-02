@@ -11,7 +11,8 @@ namespace APP.UI.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class sys_permission
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,7 +21,7 @@ namespace APP.UI.Models
             this.sys_role_permission = new HashSet<sys_role_permission>();
             this.sys_operation = new HashSet<sys_operation>();
         }
-    
+        [Key]
         public int id { get; set; }
         public string pdesc { get; set; }
         public string name { get; set; }

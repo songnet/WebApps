@@ -11,9 +11,11 @@ namespace APP.UI.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class sys_role_permission
     {
+        [Key]
         public string rpId { get; set; }
         public int roleId { get; set; }
         public int permissionId { get; set; }
